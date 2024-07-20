@@ -9,9 +9,11 @@ public static class TagManager
     public static string HORIZONTAL_AXIS = "Horizontal";
     public static string VERTICAL_AXIS = "Vertical";
 
-    public static string IDLE_ANIMATION_NAME = "Idle player";
-    public static string WALK_ANIMATION_NAME = "Player walk";
+    public static string IDLE_ANIMATION_NAME = "Idle Player";
+    public static string WALK_ANIMATION_NAME = "Player Walk";
     public static string DEATH_ANIMATION_NAME = "Death";
     public static string SHOOT_ANIMATION_NAME = "Shoot";
     public static string ATTACK_ANIMATION_NAME = "Attack";
+    public static string ENEMY_Walk_ANIMATION = "Enemy Walk";
+    public static string ENEMY_IDLE_ANIMATION = "Idle Enemy";
 }
