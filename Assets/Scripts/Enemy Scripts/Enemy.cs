@@ -13,6 +13,12 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private float stoppingDistance = 1.5f;
     private PlayerAnimation enemyAnimation;
+    [SerializeField]
+    private float attackWaitTime = 2.5f;
+    private float attackTimer;
+    [SerializeField]
+    private float attackFinishedWaitTime = 0.5f;
+    private float attackFinishedTimer;
 
     private void Awake()
     {
@@ -50,9 +56,38 @@ public class Enemy : MonoBehaviour
             transform.position = Vector2.MoveTowards(transform.position, playerTarget.position, moveSpeed * Time.deltaTime);
             Debug.Log("Moving towards player, playing walk animation: " + TagManager.WALK_ANIMATION_NAME);
             enemyAnimation.PlayAnimation(TagManager.WALK_ANIMATION_NAME);
+            HandleFacingDirection();
+        }
+        else
+        {
+            CheckIfAttackFinished();
+            Attack();
         }
         
 
 
+    }
+    void HandleFacingDirection()
+    {
+        tempScale = transform.localScale;
+        if (transform.position.x > playerTarget.position.x)
+            tempScale.x = Mathf.Abs(tempScale.x);
+        else
+            tempScale.x = -Mathf.Abs(tempScale.x);
+        transform.localScale = tempScale;
+    }
+    void CheckIfAttackFinished()
+    {
+        if (Time.time > attackFinishedTimer)
+            enemyAnimation.PlayAnimation(TagManager.ENEMY_IDLE_ANIMATION);
+    }
+    void Attack()
+    {
+        if(Time.time>attackTimer)
+        {
+            attackFinishedTimer = Time.time + attackFinishedWaitTime;
+            attackTimer = Time.time + attackWaitTime;
+            enemyAnimation.PlayAnimation(TagManager.ATTACK_ANIMATION_NAME);
+        }
     }
 }
