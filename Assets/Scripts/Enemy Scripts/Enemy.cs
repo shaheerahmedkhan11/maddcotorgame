@@ -19,7 +19,8 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private float attackFinishedWaitTime = 0.5f;
     private float attackFinishedTimer;
-
+    [SerializeField]
+    private EnemyDamageArea enemyDamageArea;
     private void Awake()
     {
         Debug.Log("The Awake function is being called!");
@@ -89,5 +90,10 @@ public class Enemy : MonoBehaviour
             attackTimer = Time.time + attackWaitTime;
             enemyAnimation.PlayAnimation(TagManager.ATTACK_ANIMATION_NAME);
         }
+    }
+    void EnemyAttacked()
+    {
+        enemyDamageArea.gameObject.SetActive(true);
+        enemyDamageArea.ResetDeactivateTimer();
     }
 }
