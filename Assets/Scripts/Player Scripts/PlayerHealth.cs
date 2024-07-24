@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
     [SerializeField]
     private float health = 100f;
     private PlayerMovement playerMovement;
+    [SerializeField]
+    private Slider healthSlider;
     private void Awake()
     {
         playerMovement = GetComponent<PlayerMovement>();
@@ -21,5 +24,6 @@ public class PlayerHealth : MonoBehaviour
             //inform that the player has died
             playerMovement.PlayerDied();
         }
+        healthSlider.value = health;
     }
 }
