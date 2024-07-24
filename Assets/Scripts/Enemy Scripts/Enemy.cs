@@ -21,6 +21,11 @@ public class Enemy : MonoBehaviour
     private float attackFinishedTimer;
     [SerializeField]
     private EnemyDamageArea enemyDamageArea;
+    private bool enemyDied;
+    [SerializeField]
+    private RectTransform healthBarTransform;
+    private Vector3 healthBarTempScale;
+
     private void Awake()
     {
         Debug.Log("The Awake function is being called!");
@@ -42,6 +47,8 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
+        if (enemyDied)
+            return;
         Debug.Log("Enemy script Update called");
         SearchForPlayer();
     }
@@ -76,6 +83,13 @@ public class Enemy : MonoBehaviour
         else
             tempScale.x = -Mathf.Abs(tempScale.x);
         transform.localScale = tempScale;
+        //Health Bar Scale
+        healthBarTempScale = healthBarTransform.localScale;
+        if (transform.localScale.x > 0f)
+            healthBarTempScale.x = Mathf.Abs(healthBarTempScale.x);
+        else
+            healthBarTempScale.x = -Mathf.Abs(healthBarTempScale.x);
+        healthBarTransform.localScale = healthBarTempScale;
     }
     void CheckIfAttackFinished()
     {
@@ -95,5 +109,15 @@ public class Enemy : MonoBehaviour
     {
         enemyDamageArea.gameObject.SetActive(true);
         enemyDamageArea.ResetDeactivateTimer();
+    }
+    public void EnemyDied()
+    {
+        enemyDied = true;
+        enemyAnimation.PlayAnimation(TagManager.DEATH_ANIMATION_NAME);
+        Invoke("DestroyEnemyAfterDelay", 1.5f);
+    }
+    void DestroyEnemyAfterDelay()
+    {
+        Destroy(gameObject);
     }
 }
