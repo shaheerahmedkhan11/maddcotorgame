@@ -28,6 +28,8 @@ public class EnemyHealth : MonoBehaviour
             enemyScript.EnemyDied();
 
             EnemySpawner.instance.EnemyDied(gameObject);
+
+            GameplayController.instance.EnemyKilled();
         }
         enemyHealthSlider.value = health;
     }

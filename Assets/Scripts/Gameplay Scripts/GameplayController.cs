@@ -24,6 +24,11 @@ public class GameplayController : MonoBehaviour
     }
     public void RestartGame()
     {
+        Invoke(nameof(Restart), 3f);
+    }
 
+    private void Restart()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Gameplay");
     }
 }
