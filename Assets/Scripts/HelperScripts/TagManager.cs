@@ -14,5 +14,6 @@ public static class TagManager
     public static string DEATH_ANIMATION_NAME = "Death";
     public static string SHOOT_ANIMATION_NAME = "Shoot";
     public static string ATTACK_ANIMATION_NAME = "Attack";
+    public static string ENEMY_IDLE_ANIMATION = "Idle Enemy";
 
 }
